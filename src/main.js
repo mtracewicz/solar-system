@@ -1,6 +1,6 @@
 import "./style.css";
 import * as THREE from "three";
-import { planets } from "./planetDefinitions";
+import planets from "./planetDefinitions";
 
 const bg = document.getElementById("bg");
 

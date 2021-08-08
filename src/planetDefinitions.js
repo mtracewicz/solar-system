@@ -7,4 +7,4 @@ const planets = {
   saturn: { size: 1, distance: 6 },
   neptun: { size: 1, distance: 7 },
 };
-export { planets };
+export default { planets };
