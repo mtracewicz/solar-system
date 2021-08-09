@@ -14,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer({ canvas: bg });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(50);
+camera.position.setZ(150);
 
 const color = 0xffeb3b;
 const intensity = 5;
@@ -48,8 +48,8 @@ planets.planets.forEach((planet) => {
 const animate = () => {
   requestAnimationFrame(animate);
   planetMeshes.forEach((obj) => {
-    obj.mesh.position.setZ(Math.cos(obj.angle) * obj.distance * 15);
-    obj.mesh.position.setX(Math.sin(obj.angle) * obj.distance * 15);
+    obj.mesh.position.setX(Math.cos(obj.angle) * obj.distance * 15);
+    obj.mesh.position.setY(Math.sin(obj.angle) * obj.distance * 15);
     obj.mesh.rotateX(0.02);
     obj.angle += obj.modifier;
   });
