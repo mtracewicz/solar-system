@@ -18,8 +18,9 @@ camera.position.setZ(50);
 
 const color = 0xffeb3b;
 const intensity = 5;
-const geometry = new THREE.SphereGeometry(5, 100, 100);
 const material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
+
+const sunGeometry = new THREE.SphereGeometry(5, 100, 100);
 const sunMaterial = new THREE.MeshStandardMaterial({
   emissive: color,
   emissiveIntensity: 1,
@@ -28,29 +29,30 @@ const sunMaterial = new THREE.MeshStandardMaterial({
 const light = new THREE.PointLight(color, intensity);
 scene.add(light);
 
-const sun = new THREE.Mesh(geometry, sunMaterial);
+const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 scene.add(sun);
 
-const planet = new THREE.Mesh(geometry, material);
-scene.add(planet);
+const planetMeshes = [];
+planets.planets.forEach((planet) => {
+  const geometry = new THREE.SphereGeometry(5 * planet.size, 100, 100);
+  const mesh = new THREE.Mesh(geometry, material);
+  planetMeshes.push({
+    mesh,
+    distance: planet.distance,
+    angle: 0.0,
+    modifier: planet.speed,
+  });
+  scene.add(mesh);
+});
 
-const planet2 = new THREE.Mesh(geometry, material);
-scene.add(planet2);
-
-let angle = 0;
-let angle2 = 0;
 const animate = () => {
   requestAnimationFrame(animate);
-  angle += 0.01;
-  angle2 += 0.02;
-
-  planet.position.z = Math.cos(angle) * planets.mercury.distance * 15;
-  planet.position.x = Math.sin(angle) * 15;
-  planet.rotateX(0.02);
-
-  planet2.position.z = Math.cos(angle2) * 35;
-  planet2.position.x = Math.sin(angle2) * 35;
-  planet2.rotateX(0.02);
+  planetMeshes.forEach((obj) => {
+    obj.mesh.position.setZ(Math.cos(obj.angle) * obj.distance * 15);
+    obj.mesh.position.setX(Math.sin(obj.angle) * obj.distance * 15);
+    obj.mesh.rotateX(0.02);
+    obj.angle += obj.modifier;
+  });
   renderer.render(scene, camera);
 };
 
