@@ -18,7 +18,6 @@ camera.position.setZ(50);
 
 const color = 0xffeb3b;
 const intensity = 5;
-const material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
 
 const sunGeometry = new THREE.SphereGeometry(5, 100, 100);
 const sunMaterial = new THREE.MeshStandardMaterial({
@@ -34,6 +33,7 @@ scene.add(sun);
 
 const planetMeshes = [];
 planets.planets.forEach((planet) => {
+  const material = new THREE.MeshPhongMaterial({ color: planet.color });
   const geometry = new THREE.SphereGeometry(5 * planet.size, 100, 100);
   const mesh = new THREE.Mesh(geometry, material);
   planetMeshes.push({
