@@ -28,18 +28,8 @@ const sunMaterial = new THREE.MeshStandardMaterial({
 const light = new THREE.PointLight(color, intensity);
 scene.add(light);
 
-const supLight1 = new THREE.PointLight(color, 0.5);
-const supLight2 = new THREE.PointLight(color, 0.5);
-const supLight3 = new THREE.PointLight(color, 0.5);
-const supLight4 = new THREE.PointLight(color, 0.5);
-supLight1.position.set(-200, -100, 0);
-supLight2.position.set(-200, 100, 0);
-supLight3.position.set(200, 100, 0);
-supLight4.position.set(200, -100, 0);
-scene.add(supLight1);
-scene.add(supLight2);
-scene.add(supLight3);
-scene.add(supLight4);
+const ambientLight = new THREE.AmbientLight(color, 0.75);
+scene.add(ambientLight);
 
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 scene.add(sun);
