@@ -14,12 +14,12 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer({ canvas: bg });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(25);
+camera.position.setZ(30);
 
 const color = 0xffeb3b;
 const intensity = 5;
 
-const sunGeometry = new THREE.SphereGeometry(0.75, 100, 100);
+const sunGeometry = new THREE.SphereGeometry(4.4, 100, 100);
 const sunMaterial = new THREE.MeshStandardMaterial({
   emissive: color,
   emissiveIntensity: 1,
@@ -37,13 +37,13 @@ scene.add(sun);
 const planetMeshes = [];
 planets.planets.forEach((planet) => {
   const material = new THREE.MeshPhongMaterial({ color: planet.color });
-  const geometry = new THREE.SphereGeometry(planet.size, 100, 100);
+  const geometry = new THREE.SphereGeometry(planet.size / 25, 100, 100);
   const mesh = new THREE.Mesh(geometry, material);
   planetMeshes.push({
     mesh,
     distance: planet.distance,
     angle: 0.0,
-    modifier: planet.speed / 60,
+    modifier: planet.speed / 120,
   });
   scene.add(mesh);
 });
@@ -51,8 +51,8 @@ planets.planets.forEach((planet) => {
 const animate = () => {
   requestAnimationFrame(animate);
   planetMeshes.forEach((obj) => {
-    obj.mesh.position.setX(Math.cos(obj.angle) * (0.75 + obj.distance * 10));
-    obj.mesh.position.setY(Math.sin(obj.angle) * (0.75 + obj.distance * 10));
+    obj.mesh.position.setX(Math.cos(obj.angle) * (4.4 + obj.distance * 10));
+    obj.mesh.position.setY(Math.sin(obj.angle) * (4.4 + obj.distance * 10));
     obj.angle += obj.modifier;
   });
   renderer.render(scene, camera);
